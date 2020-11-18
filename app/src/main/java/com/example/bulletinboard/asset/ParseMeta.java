@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.example.bulletinboard.Bulletin;
-import com.example.bulletinboard.BulletinJson;
+import com.example.bulletinboard.json.BulletinJson;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

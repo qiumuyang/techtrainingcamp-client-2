@@ -16,6 +16,7 @@ public class Asset {
     public static String loadTextAsset(AssetManager assetManager, String fileName) {
         InputStream inputStream = null;
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        Log.d(TAG, "loadTextAsset");
         try {
             inputStream = assetManager.open(fileName);
             byte[] buffer = new byte[1024];
@@ -34,6 +35,7 @@ public class Asset {
     public static Bitmap loadImageAsset(AssetManager assetManager, String fileName) {
         InputStream inputStream = null;
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        Log.d(TAG, "loadImageAsset");
         try {
             inputStream = assetManager.open(fileName);
             byte[] buffer = new byte[1024];

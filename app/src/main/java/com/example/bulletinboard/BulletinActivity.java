@@ -22,7 +22,7 @@ public class BulletinActivity extends AppCompatActivity {
 
         AssetManager am = getAssets();
         ParseMeta metaParser = new ParseMeta(am);
-        List<Bulletin> bulletins = metaParser.parse("metadata.json");
+        List<Bulletin> bulletins = metaParser.parse("metadata_test.json");
 
         RecyclerView main_list = (RecyclerView) findViewById(R.id.main_list);
         main_list.setLayoutManager(new LinearLayoutManager(this));
