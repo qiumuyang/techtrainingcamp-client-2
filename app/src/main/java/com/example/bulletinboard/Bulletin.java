@@ -1,38 +1,44 @@
 package com.example.bulletinboard;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.graphics.Bitmap;
+import android.util.Log;
 
 public class Bulletin {
+
+    private static final String TAG = "Bulletin";
 
     private String title;
     private String author;
     private String publishTime;
     private int type;
-    private int res_id;
-    private int images[];
+    private Bitmap image;
+    private Bitmap[] images;
 
-    public Bulletin(String title, String author, String publishTime, int type) {
+    public Bulletin(int type, String title, String author, String publishTime) {
         this.title = title;
         this.author = author;
         this.publishTime = publishTime;
         this.type = type;
     }
 
-    public Bulletin(String title, String author, String publishTime, int type, int res_id) {
+    public Bulletin(int type, String title, String author, String publishTime, Bitmap image) {
         this.title = title;
         this.author = author;
         this.publishTime = publishTime;
         this.type = type;
-        this.res_id = res_id;
+        this.image = image;
     }
 
-    public Bulletin(String title, String author, String publishTime, int type, int[] images) {
+    public Bulletin(int type, String title, String author, String publishTime, Bitmap[] images) {
         this.title = title;
         this.author = author;
         this.publishTime = publishTime;
         this.type = type;
         this.images = images;
+    }
+
+    public int getType() {
+        return type;
     }
 
     public String getTitle() {
@@ -47,11 +53,9 @@ public class Bulletin {
         return publishTime;
     }
 
-    public int getImage() {
-        return res_id;
-    }
+    public Bitmap getImage() { return image; }
 
-    public int[] getImages() {
-        return images;
+    public Bitmap getImages(int index) {
+        return images[index];
     }
 }

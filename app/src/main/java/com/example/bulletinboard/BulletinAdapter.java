@@ -1,5 +1,7 @@
 package com.example.bulletinboard;
 
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import java.util.List;
 
 public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
+    private static final String TAG = "BulletinAdapter";
+    
     private final int STYLE0 = 0;
     private final int STYLE1 = 1;
     private final int STYLE2 = 2;
@@ -61,9 +65,28 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.b_style3, parent, false);
-        ViewHolderWithSingleImage viewHolder = new ViewHolderWithSingleImage(view);
-        return viewHolder;
+        View view;
+        if (viewType == STYLE0) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.b_style0, parent, false);
+            return new BasicViewHolder(view);
+        }
+        else if (viewType == STYLE1) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.b_style1, parent, false);
+            return new ViewHolderWithSingleImage(view);
+        }
+        else if (viewType == STYLE2) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.b_style2, parent, false);
+            return new ViewHolderWithSingleImage(view);
+        }
+        else if (viewType == STYLE3) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.b_style3, parent, false);
+            return new ViewHolderWithSingleImage(view);
+        }
+        else if (viewType == STYLE4) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.b_style4, parent, false);
+            return new ViewHolderWithFourImages(view);
+        }
+        return null;
     }
 
     @Override
@@ -74,12 +97,39 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             viewHolder.bTitle.setText(bulletin.getTitle());
             viewHolder.bAuthor.setText(bulletin.getAuthor());
             viewHolder.bPublishTime.setText(bulletin.getPublishTime());
-            viewHolder.bImage.setImageResource(bulletin.getImage());
+            Bitmap bmp = bulletin.getImage();
+            viewHolder.bImage.setImageBitmap(bmp);
+        }
+        else if (holder instanceof ViewHolderWithFourImages) {
+            ViewHolderWithFourImages viewHolder = (ViewHolderWithFourImages) holder;
+            viewHolder.bTitle.setText(bulletin.getTitle());
+            viewHolder.bAuthor.setText(bulletin.getAuthor());
+            viewHolder.bPublishTime.setText(bulletin.getPublishTime());
+            viewHolder.bImage0.setImageBitmap(bulletin.getImages(0));
+            viewHolder.bImage1.setImageBitmap(bulletin.getImages(1));
+            viewHolder.bImage2.setImageBitmap(bulletin.getImages(2));
+            viewHolder.bImage3.setImageBitmap(bulletin.getImages(3));
+        }
+        else if (holder instanceof BasicViewHolder) {
+            // Base Class should be judged at last
+            // ViewHolderWithImages is also an instance of BasicViewHolder
+            BasicViewHolder viewHolder = (BasicViewHolder) holder;
+            viewHolder.bTitle.setText(bulletin.getTitle());
+            viewHolder.bAuthor.setText(bulletin.getAuthor());
+            viewHolder.bPublishTime.setText(bulletin.getPublishTime());
         }
     }
 
     @Override
     public int getItemCount() {
         return bulletinList.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (bulletinList.get(position) != null) {
+            return ((Bulletin)bulletinList.get(position)).getType();
+        }
+        return super.getItemViewType(position);
     }
 }
