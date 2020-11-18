@@ -1,4 +1,4 @@
-package com.example.bulletinboard;
+package com.example.bulletinboard.gson;
 
 public class BulletinJson {
     private int type;
