@@ -4,6 +4,7 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +26,7 @@ public class BulletinActivity extends AppCompatActivity {
         List<Bulletin> bulletins = metaParser.parse("metadata_test.json");
 
         RecyclerView main_list = (RecyclerView) findViewById(R.id.main_list);
+        main_list.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL)); // add divider
         main_list.setLayoutManager(new LinearLayoutManager(this));
         main_list.setAdapter(new BulletinAdapter(bulletins));
 

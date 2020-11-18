@@ -19,10 +19,11 @@
                 android:id="@+id/title_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxWidth="80dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:text="TextView"
+                android:text="Title"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -45,7 +46,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:text="TextView"
+                    android:text="Author"
                     android:textColor="@android:color/darker_gray" />
 
                 <TextView
@@ -54,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:text="TextView"
+                    android:text="PublishTime"
                     android:textColor="@android:color/darker_gray" />
 
                 <Space

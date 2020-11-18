@@ -67,23 +67,23 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if (viewType == STYLE0) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.b_style0, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.style0, parent, false);
             return new BasicViewHolder(view);
         }
         else if (viewType == STYLE1) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.b_style1, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.style1, parent, false);
             return new ViewHolderWithSingleImage(view);
         }
         else if (viewType == STYLE2) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.b_style2, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.style2, parent, false);
             return new ViewHolderWithSingleImage(view);
         }
         else if (viewType == STYLE3) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.b_style3, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.style3, parent, false);
             return new ViewHolderWithSingleImage(view);
         }
         else if (viewType == STYLE4) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.b_style4, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.style4, parent, false);
             return new ViewHolderWithFourImages(view);
         }
         return null;
