@@ -27,25 +27,26 @@ public class ParseMeta {
         String metadata = Asset.loadTextAsset(mAssetMangaer, metaPath);
         List<BulletinJson> list = gson.fromJson(metadata, new TypeToken<List<BulletinJson>>() {}.getType());
         List<Bulletin> ret = new ArrayList<Bulletin>();
-        for (BulletinJson b : list) {
-            int type = b.getType();
-            String title = b.getTitle();
-            String author = b.getAuthor();
-            String publishtime = b.getPublishTime();
+        for (BulletinJson bulletin : list) {
+            int type = bulletin.getType();
+            String id = bulletin.getId();
+            String title = bulletin.getTitle();
+            String author = bulletin.getAuthor();
+            String publishtime = bulletin.getPublishTime();
             if (type == 0) {
                 // plain text
-                ret.add(new Bulletin(type, title, author, publishtime));
+                ret.add(new Bulletin(type, id, title, author, publishtime));
             }
             else if (type >= 1 && type <= 3) {
                 // single image
-                String imgpath = b.getCover();
+                String imgpath = bulletin.getCover();
                 Bitmap img = Asset.loadImageAsset(mAssetMangaer, imgpath);
                 Log.d(TAG, img.toString());
-                ret.add(new Bulletin(type, title, author, publishtime, img));
+                ret.add(new Bulletin(type, id, title, author, publishtime, img));
             }
             else {
                 // multi-image
-                String[] imgpaths = b.getCovers();
+                String[] imgpaths = bulletin.getCovers();
                 List<Bitmap> imgs = new ArrayList<>();
                 for (String path: imgpaths) {
                     Bitmap img = Asset.loadImageAsset(mAssetMangaer, path);
@@ -53,7 +54,7 @@ public class ParseMeta {
                     Log.d(TAG, img.toString());
                 }
                 Bitmap bms[] = imgs.toArray(new Bitmap[imgs.size()]);
-                ret.add(new Bulletin(type, title, author, publishtime, bms));
+                ret.add(new Bulletin(type, id, title, author, publishtime, bms));
             }
         }
         return ret;

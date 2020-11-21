@@ -1,7 +1,6 @@
 package com.example.bulletinboard;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,36 +24,36 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private List<Bulletin> bulletinList;
 
     static class BasicViewHolder extends RecyclerView.ViewHolder{
-        TextView bTitle;
-        TextView bAuthor;
-        TextView bPublishTime;
+        TextView textTitle;
+        TextView textAuthor;
+        TextView textPublishTime;
         public BasicViewHolder(View view) {
             super(view);
-            bTitle = (TextView) view.findViewById(R.id.title_text);
-            bAuthor = (TextView) view.findViewById(R.id.author_text);
-            bPublishTime = (TextView) view.findViewById(R.id.publishtime_text);
+            textTitle = (TextView) view.findViewById(R.id.title_text);
+            textAuthor = (TextView) view.findViewById(R.id.author_text);
+            textPublishTime = (TextView) view.findViewById(R.id.publishtime_text);
         }
     }
 
     static class ViewHolderWithSingleImage extends BasicViewHolder{
-        ImageView bImage;
+        ImageView imageCover;
         public ViewHolderWithSingleImage(View view) {
             super(view);
-            bImage = (ImageView) view.findViewById(R.id.img);
+            imageCover = (ImageView) view.findViewById(R.id.img);
         }
     }
 
     static class ViewHolderWithFourImages extends BasicViewHolder{
-        ImageView bImage0;
-        ImageView bImage1;
-        ImageView bImage2;
-        ImageView bImage3;
+        ImageView imageCover0;
+        ImageView imageCover1;
+        ImageView imageCover2;
+        ImageView imageCover3;
         public ViewHolderWithFourImages(View view) {
             super(view);
-            bImage0 = (ImageView) view.findViewById(R.id.img0);
-            bImage1 = (ImageView) view.findViewById(R.id.img1);
-            bImage2 = (ImageView) view.findViewById(R.id.img2);
-            bImage3 = (ImageView) view.findViewById(R.id.img3);
+            imageCover0 = (ImageView) view.findViewById(R.id.img0);
+            imageCover1 = (ImageView) view.findViewById(R.id.img1);
+            imageCover2 = (ImageView) view.findViewById(R.id.img2);
+            imageCover3 = (ImageView) view.findViewById(R.id.img3);
         }
     }
 
@@ -94,29 +93,29 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         Bulletin bulletin = bulletinList.get(position);
         if (holder instanceof ViewHolderWithSingleImage) {
             ViewHolderWithSingleImage viewHolder = (ViewHolderWithSingleImage) holder;
-            viewHolder.bTitle.setText(bulletin.getTitle());
-            viewHolder.bAuthor.setText(bulletin.getAuthor());
-            viewHolder.bPublishTime.setText(bulletin.getPublishTime());
+            viewHolder.textTitle.setText(bulletin.getTitle());
+            viewHolder.textAuthor.setText(bulletin.getAuthor());
+            viewHolder.textPublishTime.setText(bulletin.getPublishTime());
             Bitmap bmp = bulletin.getImage();
-            viewHolder.bImage.setImageBitmap(bmp);
+            viewHolder.imageCover.setImageBitmap(bmp);
         }
         else if (holder instanceof ViewHolderWithFourImages) {
             ViewHolderWithFourImages viewHolder = (ViewHolderWithFourImages) holder;
-            viewHolder.bTitle.setText(bulletin.getTitle());
-            viewHolder.bAuthor.setText(bulletin.getAuthor());
-            viewHolder.bPublishTime.setText(bulletin.getPublishTime());
-            viewHolder.bImage0.setImageBitmap(bulletin.getImages(0));
-            viewHolder.bImage1.setImageBitmap(bulletin.getImages(1));
-            viewHolder.bImage2.setImageBitmap(bulletin.getImages(2));
-            viewHolder.bImage3.setImageBitmap(bulletin.getImages(3));
+            viewHolder.textTitle.setText(bulletin.getTitle());
+            viewHolder.textAuthor.setText(bulletin.getAuthor());
+            viewHolder.textPublishTime.setText(bulletin.getPublishTime());
+            viewHolder.imageCover0.setImageBitmap(bulletin.getImages(0));
+            viewHolder.imageCover1.setImageBitmap(bulletin.getImages(1));
+            viewHolder.imageCover2.setImageBitmap(bulletin.getImages(2));
+            viewHolder.imageCover3.setImageBitmap(bulletin.getImages(3));
         }
         else if (holder instanceof BasicViewHolder) {
             // Base Class should be judged at last
             // ViewHolderWithImages is also an instance of BasicViewHolder
             BasicViewHolder viewHolder = (BasicViewHolder) holder;
-            viewHolder.bTitle.setText(bulletin.getTitle());
-            viewHolder.bAuthor.setText(bulletin.getAuthor());
-            viewHolder.bPublishTime.setText(bulletin.getPublishTime());
+            viewHolder.textTitle.setText(bulletin.getTitle());
+            viewHolder.textAuthor.setText(bulletin.getAuthor());
+            viewHolder.textPublishTime.setText(bulletin.getPublishTime());
         }
     }
 
