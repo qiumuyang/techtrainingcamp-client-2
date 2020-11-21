@@ -34,20 +34,40 @@ public class Asset {
     public static Bitmap loadImageAsset(AssetManager assetManager, String fileName) {
         InputStream inputStream = null;
         Bitmap bitmap = null;
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        Log.d(TAG, "loadImageAsset");
         try {
             inputStream = assetManager.open(fileName);
-            bitmap = BitmapFactory.decodeStream(inputStream, null, getThumbOption());
+            byte[] buffer = new byte[1024];
+            int len = -1;
+            while ((len = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, len);
+            }
             inputStream.close();
         } catch (IOException e) {
             Log.e(TAG, "loadImageAsset: " + e.toString());
             e.printStackTrace();
         }
+        byte[] bytes = outputStream.toByteArray();
+        bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, getThumbOption(bitmap));
         return bitmap;
     }
 
-    private static BitmapFactory.Options getThumbOption() {
+    private static BitmapFactory.Options getThumbOption(Bitmap bitmap) {
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 2;
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+        int size = w*h;
+        if (size < 1000000) {
+            options.inSampleSize = 1;
+        }
+        else if (size < 2000000) {
+            options.inSampleSize = 2;
+        }
+        else {
+            options.inSampleSize = 4;
+        }
         return options;
     }
 
