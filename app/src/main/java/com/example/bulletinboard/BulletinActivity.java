@@ -16,6 +16,8 @@ public class BulletinActivity extends AppCompatActivity {
 
     private static final String TAG = "BulletinActivity";
 
+    private static final String META_PATH = "metadata_test.json";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +25,7 @@ public class BulletinActivity extends AppCompatActivity {
 
         AssetManager am = getAssets();
         ParseMeta metaParser = new ParseMeta(am);
-        List<Bulletin> bulletins = metaParser.parse("metadata_test.json");
+        List<Bulletin> bulletins = metaParser.parse(META_PATH);
 
         RecyclerView main_list = (RecyclerView) findViewById(R.id.main_list);
         main_list.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL)); // add divider

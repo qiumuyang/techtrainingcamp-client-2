@@ -49,9 +49,7 @@ public class Bulletin {
         return title;
     }
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
     public String getAuthor() {
         return author;

@@ -100,6 +100,7 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             viewHolder.imageCover.setImageBitmap(bmp);
         }
         else if (holder instanceof ViewHolderWithFourImages) {
+            // TODO make it adaptable for any number of images
             ViewHolderWithFourImages viewHolder = (ViewHolderWithFourImages) holder;
             viewHolder.textTitle.setText(bulletin.getTitle());
             viewHolder.textAuthor.setText(bulletin.getAuthor());

@@ -16,7 +16,6 @@ public class Asset {
     public static String loadTextAsset(AssetManager assetManager, String fileName) {
         InputStream inputStream = null;
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        Log.d(TAG, "loadTextAsset");
         try {
             inputStream = assetManager.open(fileName);
             byte[] buffer = new byte[1024];
@@ -34,22 +33,22 @@ public class Asset {
 
     public static Bitmap loadImageAsset(AssetManager assetManager, String fileName) {
         InputStream inputStream = null;
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        Log.d(TAG, "loadImageAsset");
+        Bitmap bitmap = null;
         try {
             inputStream = assetManager.open(fileName);
-            byte[] buffer = new byte[1024];
-            int len = -1;
-            while ((len = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, len);
-            }
+            bitmap = BitmapFactory.decodeStream(inputStream, null, getThumbOption());
             inputStream.close();
         } catch (IOException e) {
             Log.e(TAG, "loadImageAsset: " + e.toString());
             e.printStackTrace();
         }
-        byte[] bytes = outputStream.toByteArray();
-        Log.d(TAG, fileName + " length: " + bytes.length);
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        return bitmap;
     }
+
+    private static BitmapFactory.Options getThumbOption() {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+        return options;
+    }
+
 }
