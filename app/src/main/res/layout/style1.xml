@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="Title"
         android:textColor="@color/black"
-        android:textSize="22sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/img"
@@ -29,9 +29,10 @@
         android:id="@+id/author_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="68dp"
         android:text="Author"
         android:textColor="@android:color/darker_gray"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/title_text"
         app:layout_constraintTop_toBottomOf="@+id/title_text" />
 
@@ -42,6 +43,7 @@
         android:layout_marginStart="8dp"
         android:text="PublishTime"
         android:textColor="@android:color/darker_gray"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/author_text"
         app:layout_constraintStart_toEndOf="@+id/author_text"
         app:layout_constraintTop_toTopOf="parent"

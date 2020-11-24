@@ -1,4 +1,4 @@
-package com.example.bulletinboard;
+package com.example.bulletinboard.data;
 
 import android.graphics.Bitmap;
 import android.util.Log;

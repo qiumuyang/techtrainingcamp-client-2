@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bulletinboard.asset.ParseMeta;
+import com.example.bulletinboard.data.Bulletin;
 
 import java.util.List;
 

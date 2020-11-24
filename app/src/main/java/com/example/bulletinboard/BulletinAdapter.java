@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bulletinboard.data.Bulletin;
+
 import java.util.List;
 
 public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -69,6 +71,7 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     int position = singleHolder.getAdapterPosition();
                     Bulletin bulletin = bulletinList.get(position);
                     Toast.makeText(v.getContext(), "Article '"+ bulletin.getId()+ "' clicked", Toast.LENGTH_SHORT).show();
+                    LoginActivity.actionStart(v.getContext(), bulletin.getId());
                 });
                 return singleHolder;
             case STYLE4:
