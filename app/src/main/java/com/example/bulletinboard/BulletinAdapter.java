@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +40,13 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return imgView;
     }
 
+    private static void loadArticle(Context context, Bulletin bulletin) {
+        ArticleActivity.actionStart(context,
+                bulletin.getId(),
+                bulletin.getTitle(),
+                bulletin.getAuthor() + " " + bulletin.getPublishTime());
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -52,7 +58,8 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 basicHolder.bulletinView.setOnClickListener(v -> {
                     int position = basicHolder.getAdapterPosition();
                     Bulletin bulletin = bulletinList.get(position);
-                    Toast.makeText(v.getContext(), "Article '"+ bulletin.getId()+ "' clicked", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(v.getContext(), "Article '"+ bulletin.getId()+ "' clicked", Toast.LENGTH_SHORT).show();
+                    loadArticle(v.getContext(), bulletin);
                 });
                 return basicHolder;
             case STYLE1:
@@ -70,8 +77,8 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 singleHolder.bulletinView.setOnClickListener(v -> {
                     int position = singleHolder.getAdapterPosition();
                     Bulletin bulletin = bulletinList.get(position);
-                    Toast.makeText(v.getContext(), "Article '"+ bulletin.getId()+ "' clicked", Toast.LENGTH_SHORT).show();
-                    LoginActivity.actionStart(v.getContext(), bulletin.getId());
+                    // Toast.makeText(v.getContext(), "Article '"+ bulletin.getId()+ "' clicked", Toast.LENGTH_SHORT).show();
+                    loadArticle(v.getContext(), bulletin);
                 });
                 return singleHolder;
             case STYLE4:
@@ -89,7 +96,8 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 fourHolder.bulletinView.setOnClickListener(v -> {
                     int position = fourHolder.getAdapterPosition();
                     Bulletin bulletin = bulletinList.get(position);
-                    Toast.makeText(v.getContext(), "Article '"+ bulletin.getId()+ "' clicked", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(v.getContext(), "Article '"+ bulletin.getId()+ "' clicked", Toast.LENGTH_SHORT).show();
+                    loadArticle(v.getContext(), bulletin);
                 });
                 return fourHolder;
             default:

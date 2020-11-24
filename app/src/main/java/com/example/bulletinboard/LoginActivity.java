@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,11 +34,12 @@ public class LoginActivity extends AppCompatActivity {
     private static final String URL_LOGIN = "https://vcapi.lvdaqian.cn/login";
     private static String article_id = null;
 
-    public static void actionStart(Context context, String id) {
+    public static final int LOGIN_SUC = 1;
+
+    public static void actionStart(AppCompatActivity activity) {
         Intent intent = new Intent();
-        intent.setClass(context, LoginActivity.class);
-        intent.putExtra("article_id", id);
-        context.startActivity(intent);
+        intent.setClass(activity, LoginActivity.class);
+        activity.startActivityForResult(intent, 1);
     }
 
     @Override
@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                Intent intent = new Intent();
                 switch (response.code()) {
                     case 200:
                         String responseString = response.body().string();
@@ -99,6 +100,8 @@ public class LoginActivity extends AppCompatActivity {
                             case 0:
                                 UserToken.setToken(LoginActivity.this, respData.token);
                                 makeToast("登录成功");
+                                intent.putExtra("token", respData.token);
+                                setResult(LOGIN_SUC, intent);
                                 finish();
                                 break;
                             default:
@@ -107,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         break;
                     default:
-                        makeToast("网络错误("+ response.code() +")");
+                        makeToast("网络错误(" + response.code() + ")");
                         break;
                 }
             }
@@ -132,14 +135,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setLoginValidity() {
-        int len1 = ((EditText)findViewById(R.id.username)).getText().toString().length();
-        int len2 = ((EditText)findViewById(R.id.password)).getText().toString().length();
+        int len1 = ((EditText) findViewById(R.id.username)).getText().toString().length();
+        int len2 = ((EditText) findViewById(R.id.password)).getText().toString().length();
         ((Button) findViewById(R.id.login)).setEnabled(len1 != 0 && len2 != 0);
     }
 
     private void makeToast(String text) {
-        LoginActivity.this.runOnUiThread(() ->
-                Toast.makeText(LoginActivity.this, text, Toast.LENGTH_SHORT).show());
+        runOnUiThread(() -> Toast.makeText(this, text, Toast.LENGTH_SHORT).show());
     }
 
 }
