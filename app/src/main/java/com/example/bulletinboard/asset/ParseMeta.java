@@ -49,19 +49,15 @@ public class ParseMeta {
             } else if (type >= 1 && type <= 3) {
                 // single image
                 String imgpath = bulletin.getCover();
-                Bitmap img = Asset.loadImageAsset(mAssetMangaer, imgpath);
-                // img = resize_h(img, IMG_H0);
-                Log.d(TAG, img.toString());
+                Bitmap img = Asset.loadImageAssetThumb(mAssetMangaer, imgpath);
                 ret.add(new Bulletin(type, id, title, author, publishtime, img));
             } else {
                 // multi-image
                 String[] imgpaths = bulletin.getCovers();
                 List<Bitmap> imgs = new ArrayList<>();
                 for (String path : imgpaths) {
-                    Bitmap img = Asset.loadImageAsset(mAssetMangaer, path);
-                    // img = resize_h(img, IMG_H1);
+                    Bitmap img = Asset.loadImageAssetThumb(mAssetMangaer, path);
                     imgs.add(img);
-                    Log.d(TAG, img.toString());
                 }
                 Bitmap[] bms = imgs.toArray(new Bitmap[imgs.size()]);
                 ret.add(new Bulletin(type, id, title, author, publishtime, bms));

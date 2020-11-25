@@ -13,8 +13,8 @@ public class Asset {
 
     private static final String TAG = "Asset";
 
-    public static String loadTextAsset(AssetManager assetManager, String fileName) {
-        InputStream inputStream = null;
+    private static byte[] loadRawAsset(AssetManager assetManager, String fileName) {
+        InputStream inputStream;
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
             inputStream = assetManager.open(fileName);
@@ -25,31 +25,25 @@ public class Asset {
             }
             inputStream.close();
         } catch (IOException e) {
-            Log.e(TAG, "loadTextAsset: " + e.toString());
+            Log.e(TAG, "loadAsset: " + e.toString());
             e.printStackTrace();
         }
-        return outputStream.toString();
+        return outputStream.toByteArray();
+    }
+
+    public static String loadTextAsset(AssetManager assetManager, String fileName) {
+        byte[] bytes = loadRawAsset(assetManager, fileName);
+        return new String(bytes);
     }
 
     public static Bitmap loadImageAsset(AssetManager assetManager, String fileName) {
-        InputStream inputStream = null;
-        Bitmap bitmap = null;
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        Log.d(TAG, "loadImageAsset");
-        try {
-            inputStream = assetManager.open(fileName);
-            byte[] buffer = new byte[1024];
-            int len = -1;
-            while ((len = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, len);
-            }
-            inputStream.close();
-        } catch (IOException e) {
-            Log.e(TAG, "loadImageAsset: " + e.toString());
-            e.printStackTrace();
-        }
-        byte[] bytes = outputStream.toByteArray();
-        bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        byte[] bytes = loadRawAsset(assetManager, fileName);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
+
+    public static Bitmap loadImageAssetThumb(AssetManager assetManager, String fileName) {
+        byte[] bytes = loadRawAsset(assetManager, fileName);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, getThumbOption(bitmap));
         return bitmap;
     }
@@ -58,16 +52,16 @@ public class Asset {
         BitmapFactory.Options options = new BitmapFactory.Options();
         int w = bitmap.getWidth();
         int h = bitmap.getHeight();
-        int size = w*h;
+        int size = w * h;
+        int sampleSize = 1;
         if (size < 1000000) {
-            options.inSampleSize = 1;
+            sampleSize = 1;
+        } else if (size < 2000000) {
+            sampleSize = 2;
+        } else {
+            sampleSize = 4;
         }
-        else if (size < 2000000) {
-            options.inSampleSize = 2;
-        }
-        else {
-            options.inSampleSize = 4;
-        }
+        options.inSampleSize = sampleSize;
         return options;
     }
 
