@@ -5,8 +5,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.bulletinboard.util.User;
-
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";

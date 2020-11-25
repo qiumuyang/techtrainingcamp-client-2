@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bulletinboard.data.Bulletin;
+import com.example.bulletinboard.util.ImageDisplayer;
 
 import java.util.List;
 
@@ -31,13 +32,6 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public BulletinAdapter(List<Bulletin> bList) {
         bulletinList = bList;
-    }
-
-    private static ImageView newDlgImgView(Context context, Bitmap src) {
-        ImageView imgView = new ImageView(context);
-        imgView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        imgView.setImageBitmap(src);
-        return imgView;
     }
 
     private static void loadArticle(Context context, Bulletin bulletin) {
@@ -68,11 +62,8 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 ViewHolderWithSingleImage singleHolder = new ViewHolderWithSingleImage(view);
                 singleHolder.imageCover.setOnClickListener(v -> {
                     ImageView imageView = (ImageView) v;
-                    final Dialog dlg = new Dialog(v.getContext(), android.R.style.Theme_Black_NoTitleBar_Fullscreen);
-                    ImageView dlgImgView = newDlgImgView(v.getContext(), ((BitmapDrawable) imageView.getDrawable()).getBitmap());
-                    dlg.setContentView(dlgImgView);
+                    final Dialog dlg = ImageDisplayer.getDialog(v.getContext(), ((BitmapDrawable) imageView.getDrawable()).getBitmap());
                     dlg.show();
-                    dlgImgView.setOnClickListener(v1 -> dlg.dismiss());
                 });
                 singleHolder.bulletinView.setOnClickListener(v -> {
                     int position = singleHolder.getAdapterPosition();
@@ -86,11 +77,8 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 for (int i = 0; i < 4; i++) {
                     fourHolder.imageCovers[i].setOnClickListener(v -> {
                         ImageView imageView = (ImageView) v;
-                        final Dialog dlg = new Dialog(v.getContext(), android.R.style.Theme_Black_NoTitleBar_Fullscreen);
-                        ImageView dlgImageView = newDlgImgView(v.getContext(), ((BitmapDrawable) imageView.getDrawable()).getBitmap());
-                        dlg.setContentView(dlgImageView);
+                        final Dialog dlg = ImageDisplayer.getDialog(v.getContext(), ((BitmapDrawable) imageView.getDrawable()).getBitmap());
                         dlg.show();
-                        dlgImageView.setOnClickListener(v1 -> dlg.dismiss());
                     });
                 }
                 fourHolder.bulletinView.setOnClickListener(v -> {
