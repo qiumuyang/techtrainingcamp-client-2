@@ -3,7 +3,6 @@ package com.example.bulletinboard;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bulletinboard.json.ArticleResponse;
-import com.example.bulletinboard.util.UserToken;
+import com.example.bulletinboard.util.User;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
@@ -71,7 +70,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private String getToken() {
-        String token = UserToken.getToken(this);
+        String token = User.getToken(this);
         if (token == null) {
             LoginActivity.actionStart(this);
         }
@@ -108,7 +107,6 @@ public class ArticleActivity extends AppCompatActivity {
                         switch (retcode) {
                             case 0:
                                 setText(R.id.content, respData.data);
-                                // makeToast("获取文章成功");
                                 break;
                             default:
                                 makeToast("未知错误 " + respData.message);
@@ -117,9 +115,10 @@ public class ArticleActivity extends AppCompatActivity {
                         break;
                     case 401:
                         // unauthorized
+                        // remove saved token and call LOGIN
                         makeToast("登录过期，请重新登录");
-                        UserToken.setToken(ArticleActivity.this, null);
-                        getArticle(id);
+                        User.setToken(ArticleActivity.this, null);
+                        String token = getToken();
                         break;
                     default:
                         makeToast("网络错误(" + response.code() + ")");
@@ -134,7 +133,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void setText(int res_id, String text) {
-        runOnUiThread(() -> ((TextView)findViewById(res_id)).setText(text));
+        runOnUiThread(() -> ((TextView) findViewById(res_id)).setText(text));
     }
 
 }

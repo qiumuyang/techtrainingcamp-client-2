@@ -1,6 +1,5 @@
 package com.example.bulletinboard;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,7 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bulletinboard.json.LoginResponse;
-import com.example.bulletinboard.util.UserToken;
+import com.example.bulletinboard.util.User;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
@@ -53,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
         Button loginButton = ((Button) findViewById(R.id.login));
         EditText usernameText = (EditText) findViewById(R.id.username);
         EditText passwordText = (EditText) findViewById(R.id.password);
+        String savedUsername = User.getUsername(this);
+        usernameText.setText(savedUsername);
 
         setLoginValidity();
 
@@ -98,7 +99,8 @@ public class LoginActivity extends AppCompatActivity {
                         int retcode = respData.code;
                         switch (retcode) {
                             case 0:
-                                UserToken.setToken(LoginActivity.this, respData.token);
+                                User.setToken(LoginActivity.this, respData.token);
+                                User.setUsername(LoginActivity.this, username);
                                 makeToast("登录成功");
                                 intent.putExtra("token", respData.token);
                                 setResult(LOGIN_SUC, intent);

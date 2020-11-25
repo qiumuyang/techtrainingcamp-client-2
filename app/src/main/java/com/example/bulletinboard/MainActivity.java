@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.bulletinboard.util.UserToken;
+import com.example.bulletinboard.util.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,9 +16,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // clear token on boot for test
+        // test token-update by setting invalid token on boot
         // TODO remove this line
-        UserToken.setToken(this, null);
+        // User.setToken(this, "123");
 
         Intent intent = new Intent(this, BulletinActivity.class);
         startActivity(intent);
