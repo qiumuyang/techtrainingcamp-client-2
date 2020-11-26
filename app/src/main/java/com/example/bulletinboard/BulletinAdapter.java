@@ -41,6 +41,24 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 bulletin.getAuthor() + " " + bulletin.getPublishTime());
     }
 
+    private static void imageAutoAdapt(ImageView imageView, String fixed) {
+        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        LayoutParams layoutParams = imageView.getLayoutParams();
+        int imgw = bitmap.getWidth();
+        int imgh = bitmap.getHeight();
+        if (layoutParams.width <= 0 && fixed != "none")
+            fixed = "parent";
+        if (fixed == "w")
+            layoutParams.height = layoutParams.width * imgh / imgw;
+        else if (fixed == "h")
+            layoutParams.width = layoutParams.height * imgw / imgh;
+        else if (fixed == "parent") {
+            int width = imageView.getContext().getResources().getDisplayMetrics().widthPixels;
+            layoutParams.height = width * imgh / imgw;
+        }
+        imageView.setLayoutParams(layoutParams);
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -52,7 +70,6 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 basicHolder.bulletinView.setOnClickListener(v -> {
                     int position = basicHolder.getAdapterPosition();
                     Bulletin bulletin = bulletinList.get(position);
-                    // Toast.makeText(v.getContext(), "Article '"+ bulletin.getId()+ "' clicked", Toast.LENGTH_SHORT).show();
                     loadArticle(v.getContext(), bulletin);
                 });
                 return basicHolder;
@@ -68,7 +85,6 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 singleHolder.bulletinView.setOnClickListener(v -> {
                     int position = singleHolder.getAdapterPosition();
                     Bulletin bulletin = bulletinList.get(position);
-                    // Toast.makeText(v.getContext(), "Article '"+ bulletin.getId()+ "' clicked", Toast.LENGTH_SHORT).show();
                     loadArticle(v.getContext(), bulletin);
                 });
                 return singleHolder;
@@ -84,7 +100,6 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 fourHolder.bulletinView.setOnClickListener(v -> {
                     int position = fourHolder.getAdapterPosition();
                     Bulletin bulletin = bulletinList.get(position);
-                    // Toast.makeText(v.getContext(), "Article '"+ bulletin.getId()+ "' clicked", Toast.LENGTH_SHORT).show();
                     loadArticle(v.getContext(), bulletin);
                 });
                 return fourHolder;
@@ -103,6 +118,7 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             viewHolder.textPublishTime.setText(bulletin.getPublishTime());
             Bitmap bmp = bulletin.getImage();
             viewHolder.imageCover.setImageBitmap(bmp);
+            imageAutoAdapt(viewHolder.imageCover, "w");
         } else if (holder instanceof ViewHolderWithFourImages) {
             // TODO make it adaptable for any number of images
             ViewHolderWithFourImages viewHolder = (ViewHolderWithFourImages) holder;
@@ -111,6 +127,7 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             viewHolder.textPublishTime.setText(bulletin.getPublishTime());
             for (int i = 0; i < 4; i++) {
                 viewHolder.imageCovers[i].setImageBitmap(bulletin.getImages(i));
+                imageAutoAdapt(viewHolder.imageCovers[i], "none");
             }
         } else if (holder instanceof BasicViewHolder) {
             // Base Class should be judged at last
@@ -130,7 +147,7 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemViewType(int position) {
         if (bulletinList.get(position) != null) {
-            return ((Bulletin) bulletinList.get(position)).getType();
+            return bulletinList.get(position).getType();
         }
         return super.getItemViewType(position);
     }
@@ -144,9 +161,9 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public BasicViewHolder(View view) {
             super(view);
             bulletinView = view;
-            textTitle = (TextView) view.findViewById(R.id.title_text);
-            textAuthor = (TextView) view.findViewById(R.id.author_text);
-            textPublishTime = (TextView) view.findViewById(R.id.publishtime_text);
+            textTitle = view.findViewById(R.id.title_text);
+            textAuthor = view.findViewById(R.id.author_text);
+            textPublishTime = view.findViewById(R.id.publishtime_text);
         }
     }
 
@@ -155,7 +172,7 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         public ViewHolderWithSingleImage(View view) {
             super(view);
-            imageCover = (ImageView) view.findViewById(R.id.img);
+            imageCover = view.findViewById(R.id.img);
         }
     }
 
@@ -166,7 +183,7 @@ public class BulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(view);
             int[] res_id = {R.id.img0, R.id.img1, R.id.img2, R.id.img3};
             for (int i = 0; i < 4; i++) {
-                imageCovers[i] = (ImageView) view.findViewById(res_id[i]);
+                imageCovers[i] = view.findViewById(res_id[i]);
             }
         }
     }

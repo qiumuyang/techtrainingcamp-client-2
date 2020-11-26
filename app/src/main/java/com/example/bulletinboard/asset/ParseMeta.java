@@ -23,14 +23,6 @@ public class ParseMeta {
         this.mAssetMangaer = assetManager;
     }
 
-    private static Bitmap resize_h(Bitmap bitmap, int dst_h) {
-        int src_h = bitmap.getHeight();
-        int src_w = bitmap.getWidth();
-        int dst_w = src_w * dst_h / src_h;
-        Bitmap ret = Bitmap.createScaledBitmap(bitmap, dst_w, dst_h, true);
-        return ret;
-    }
-
     public List<Bulletin> parse(String metaPath) {
         Gson gson = new Gson();
         String metadata = Asset.loadTextAsset(mAssetMangaer, metaPath);

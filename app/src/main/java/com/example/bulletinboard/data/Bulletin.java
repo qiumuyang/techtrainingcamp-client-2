@@ -64,4 +64,6 @@ public class Bulletin {
     public Bitmap getImages(int index) {
         return images[index];
     }
+
+    public int imageCount() { return images.length; }
 }

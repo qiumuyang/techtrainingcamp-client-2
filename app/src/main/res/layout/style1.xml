@@ -29,12 +29,12 @@
         android:id="@+id/author_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
         android:text="Author"
         android:textColor="@android:color/darker_gray"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/title_text"
-        app:layout_constraintTop_toBottomOf="@+id/title_text" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteY="92dp" />
 
     <TextView
         android:id="@+id/publishtime_text"
@@ -44,10 +44,8 @@
         android:text="PublishTime"
         android:textColor="@android:color/darker_gray"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/author_text"
-        app:layout_constraintStart_toEndOf="@+id/author_text"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/author_text" />
 
     <ImageView
         android:id="@+id/img"
