@@ -3,6 +3,7 @@ package com.example.bulletinboard;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +24,11 @@ public class BulletinActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bulletin);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            //actionBar.hide();
+        }
 
         AssetManager am = getAssets();
         ParseMeta metaParser = new ParseMeta(am);
