@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bulletinboard.json.ArticleResponse;
+import com.example.bulletinboard.util.MDParser;
 import com.example.bulletinboard.util.User;
 import com.google.gson.Gson;
 
@@ -106,7 +107,7 @@ public class ArticleActivity extends AppCompatActivity {
                         int retcode = respData.code;
                         switch (retcode) {
                             case 0:
-                                setText(R.id.content, respData.data);
+                                setTextMD(R.id.content, respData.data);
                                 break;
                             default:
                                 makeToast("未知错误 " + respData.message);
@@ -130,6 +131,10 @@ public class ArticleActivity extends AppCompatActivity {
 
     private void makeToast(String text) {
         runOnUiThread(() -> Toast.makeText(this, text, Toast.LENGTH_SHORT).show());
+    }
+
+    private void setTextMD(int res_id, String text) {
+        runOnUiThread(() -> ((TextView) findViewById(res_id)).setText(MDParser.parse(getApplicationContext(), text)));
     }
 
     private void setText(int res_id, String text) {
