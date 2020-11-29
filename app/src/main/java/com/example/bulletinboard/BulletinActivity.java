@@ -3,6 +3,7 @@ package com.example.bulletinboard;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -39,9 +40,25 @@ public class BulletinActivity extends AppCompatActivity {
             customed.setTitle(getResources().getString(R.string.app_name));
             customed.setImageRight(R.drawable.star_fill_white);
             setLeftButtonByLogin();
-            customed.getButtonRight().setOnClickListener(v -> {FavorActivity.actionStart(this);});
+            customed.getButtonLeft().setOnClickListener(v -> {
+                // if logged in then logout
+                // if not logged in then login
+                if (User.getToken(this) != null) {
+                    User.setToken(getApplicationContext(), null);
+                    Toast.makeText(getApplicationContext(), "注销成功", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    LoginActivity.actionStart(this);
+                }
+                setLeftButtonByLogin();
+            });
+            customed.getButtonRight().setOnClickListener(v -> {
+                // open favor list
+                FavorActivity.actionStart(this);
+            });
         }
 
+        // init bulletin list
         AssetManager am = getAssets();
         MetaParser metaParser = new MetaParser(am);
         List<Bulletin> bulletins = metaParser.parse(META_PATH);
@@ -56,14 +73,9 @@ public class BulletinActivity extends AppCompatActivity {
     private void setLeftButtonByLogin() {
         boolean isLoggedin = User.getToken(this) != null;
         if (isLoggedin) {
-            this.customActionBar.setImageLeft(R.drawable.person);
-            this.customActionBar.getButtonLeft().setOnClickListener(null);
-        }
-        else {
+            this.customActionBar.setImageLeft(R.drawable.logout);
+        } else {
             this.customActionBar.setImageLeft(R.drawable.login);
-            this.customActionBar.getButtonLeft().setOnClickListener(v -> {
-                LoginActivity.actionStart(this);
-            });
         }
     }
 
