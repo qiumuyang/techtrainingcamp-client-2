@@ -12,5 +12,11 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="actionBarStyle">@style/ActionBarMargin</item>
+    </style>
+
+    <style name="ActionBarMargin" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetEnd">0dp</item>
     </style>
 </resources>
