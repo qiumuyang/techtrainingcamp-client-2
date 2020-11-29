@@ -11,6 +11,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class User {
 
     private static final String XML_PATH = "user.xml";
+    private static final String FAVOR_PATH = "favor.xml";
     private static final String TOKEN_KEY = "token";
     private static final String USER_KEY = "username";
     private static final String PSWD_KEY = "password";
@@ -49,14 +50,14 @@ public class User {
     }
 
     public static Set<String> getFavorite(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(XML_PATH, MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences(FAVOR_PATH, MODE_PRIVATE);
         Set<String> ret = sp.getStringSet(FAVOR_KEY, new HashSet<String>());
         ret.remove(null);
         return ret;
     }
 
     public static void setFavorite(Context context, Set<String> favor) {
-        SharedPreferences sp = context.getSharedPreferences(XML_PATH, MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences(FAVOR_PATH, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putStringSet(FAVOR_KEY, favor);
         editor.apply();

@@ -41,9 +41,9 @@ public class Bulletin {
         this.images = images;
     }
 
-    public int getType() {
-        return type;
-    }
+    public void setType(int t) { this.type = t; }
+
+    public int getType() { return type; }
 
     public String getTitle() {
         return title;

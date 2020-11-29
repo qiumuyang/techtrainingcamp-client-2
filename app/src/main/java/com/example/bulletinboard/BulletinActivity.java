@@ -41,6 +41,7 @@ public class BulletinActivity extends AppCompatActivity {
             customed.setTitle(getResources().getString(R.string.app_name));
             customed.setImageRight(R.drawable.star_fill_white);
             setLeftButtonByLogin();
+            customed.getButtonRight().setOnClickListener(v -> {FavorActivity.actionStart(this);});
         }
 
         AssetManager am = getAssets();

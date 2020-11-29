@@ -2,7 +2,6 @@ package com.example.bulletinboard.asset;
 
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.example.bulletinboard.data.Bulletin;
 import com.example.bulletinboard.json.BulletinJson;
@@ -11,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ParseMeta {
 
@@ -58,4 +58,17 @@ public class ParseMeta {
         return ret;
     }
 
+    public List<BulletinJson> getRawBulletin(String metaPath, Set<String> target) {
+        Gson gson = new Gson();
+        String metadata = Asset.loadTextAsset(mAssetMangaer, metaPath);
+        List<BulletinJson> list = gson.fromJson(metadata, new TypeToken<List<BulletinJson>>() {
+        }.getType());
+        List<BulletinJson> ret = new ArrayList<>();
+        for (BulletinJson bulletin : list) {
+            if (target == null || target.contains(bulletin.getId())) {
+                ret.add(bulletin);
+            }
+        }
+        return ret;
+    }
 }
