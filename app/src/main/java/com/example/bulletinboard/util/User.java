@@ -58,7 +58,7 @@ public class User {
 
     public static void setFavorite(Context context, Set<String> favor) {
         SharedPreferences sp = context.getSharedPreferences(FAVOR_PATH, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
+        SharedPreferences.Editor editor = sp.edit().clear();
         editor.putStringSet(FAVOR_KEY, favor);
         editor.apply();
     }

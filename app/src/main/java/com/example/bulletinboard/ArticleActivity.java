@@ -66,7 +66,7 @@ public class ArticleActivity extends AppCompatActivity {
             customed.setImageRight(R.drawable.star_fill_white);
             setRightButtonByFavor();
             this.customActionBar.getButtonRight().setOnClickListener(v -> {
-                User.swapFavorite(this, article_id);
+                User.swapFavorite(getApplicationContext(), article_id);
                 if (User.getFavorite(v.getContext()).contains(article_id))
                     makeToast("收藏成功");
                 setRightButtonByFavor();
