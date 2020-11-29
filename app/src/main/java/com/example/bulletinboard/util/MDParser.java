@@ -34,6 +34,7 @@ public class MDParser {
     private static final int LIST_MARGIN = 20;
     private static final int BULLET_MARGIN = 0;
 
+    // parse Bold & Italic
     public static SpannableString parseEmphasis(String raw) {
         String line = raw.trim();
         String content = "";
@@ -60,6 +61,7 @@ public class MDParser {
         return string;
     }
 
+    // parse Image
     public static SpannableString parseImage(Context ctx, String line) {
         // assume image is declared in one single line
         Pattern pattern = Pattern.compile("!\\[(.*?)\\]\\((.*)\\)");
@@ -75,6 +77,7 @@ public class MDParser {
         return null;
     }
 
+    // parse Title & Unordered List & List
     public static SpannableString parseLine(Context ctx, String raw) {
         String line = raw.trim();
         SpannableString imgSpan = parseImage(ctx, line);
@@ -92,7 +95,7 @@ public class MDParser {
             content = line;
         }
         if (header.length() > 0 && header.charAt(0) <= '9' && header.charAt(0) >= '0') {
-            content = header + content;
+            content = header + " " + content;
         }
         SpannableString ret = parseEmphasis(content);
         ret.setSpan(new ForegroundColorSpan(Color.BLACK), 0, ret.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -117,6 +120,7 @@ public class MDParser {
         return ret;
     }
 
+    // Main Function, parse the whole MarkDown String
     public static SpannableStringBuilder parse(Context ctx, String raw) {
         SpannableStringBuilder builder = new SpannableStringBuilder();
         String pre = preprocess(raw);
@@ -128,6 +132,7 @@ public class MDParser {
         return builder;
     }
 
+    // auto add an empty line before a Title
     private static String preprocess(String raw) {
         String ret = raw;
         // ret = ret.replaceAll(" *\\\\n *##", "##");
@@ -135,6 +140,7 @@ public class MDParser {
         return ret;
     }
 
+    // used for parsing emphasis
     private static class EmphToken {
         public int type;
         public int start;

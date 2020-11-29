@@ -33,7 +33,8 @@ public class ImageDisplayer {
         // Toast.makeText(context, dir + File.separator + image.toString(), Toast.LENGTH_LONG).show();
         File folder = new File(dir);
         File file = new File(dir + File.separator + image.toString().substring(25) + ".png");
-        // TODO change folder to DCMI (permission required)
+        // ~TODO change folder to DCMI (permission required)~
+        // goal deprecated
         if (!folder.exists() && !folder.mkdirs())
             return null;
         try {

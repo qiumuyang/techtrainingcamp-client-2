@@ -34,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
     public static final int LOGIN_SUC = 1;
     private static final String TAG = "LoginActivity";
     private static final String URL_LOGIN = "https://vcapi.lvdaqian.cn/login";
-    private static String article_id = null;
 
     public static void actionStart(AppCompatActivity activity) {
         Intent intent = new Intent();
@@ -52,9 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        Intent intent = getIntent();
-        article_id = intent.getStringExtra("article_id");
-
+        // init ViewWidgets
         Button loginButton = findViewById(R.id.login);
         EditText usernameText = findViewById(R.id.username);
         EditText passwordText = findViewById(R.id.password);
@@ -74,13 +71,10 @@ public class LoginActivity extends AppCompatActivity {
             User.setSavePswd(buttonView.getContext(), isChecked);
         });
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = usernameText.getText().toString();
-                String password = passwordText.getText().toString();
-                sendLoginPost(username, password);
-            }
+        loginButton.setOnClickListener(v -> {
+            String username = usernameText.getText().toString();
+            String password = passwordText.getText().toString();
+            sendLoginPost(username, password);
         });
 
     }
@@ -112,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                         LoginResponse respData = gson.fromJson(responseString, LoginResponse.class);
                         int retcode = respData.code;
                         switch (retcode) {
-                            case 0:
+                            case 0: // success
                                 User.setToken(LoginActivity.this, respData.token);
                                 User.setUsername(LoginActivity.this, username);
                                 if (User.isSavePswd(LoginActivity.this))
@@ -124,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                                 setResult(LOGIN_SUC, intent);
                                 finish();
                                 break;
-                            default:
+                            default: // failure
                                 makeToast("未知错误 " + respData.message);
                                 break;
                         }
@@ -154,6 +148,7 @@ public class LoginActivity extends AppCompatActivity {
         };
     }
 
+    /* make sure input not empty */
     private void setLoginValidity() {
         int len1 = ((EditText) findViewById(R.id.username)).getText().toString().length();
         int len2 = ((EditText) findViewById(R.id.password)).getText().toString().length();

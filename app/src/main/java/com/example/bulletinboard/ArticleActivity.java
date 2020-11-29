@@ -127,7 +127,7 @@ public class ArticleActivity extends AppCompatActivity {
                         ArticleResponse respData = gson.fromJson(responseString, ArticleResponse.class);
                         int retcode = respData.code;
                         switch (retcode) {
-                            case 0:
+                            case 0: // success
                                 setTextMD(R.id.content, respData.data);
                                 break;
                             default:
@@ -135,8 +135,7 @@ public class ArticleActivity extends AppCompatActivity {
                                 break;
                         }
                         break;
-                    case 401:
-                        // unauthorized
+                    case 401: // unauthorized
                         // remove saved token and call LOGIN
                         makeToast("登录过期，请重新登录");
                         User.setToken(ArticleActivity.this, null);
