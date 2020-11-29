@@ -47,6 +47,14 @@ public class ArticleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article);
 
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("id");
+        String title = intent.getStringExtra("title");
+        String info = intent.getStringExtra("info");
+        setText(R.id.title, title);
+        setText(R.id.info, info);
+        article_id = id;
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             CustomActionBar customed = new CustomActionBar(this);
@@ -56,15 +64,15 @@ public class ArticleActivity extends AppCompatActivity {
             customed.setImageLeft(R.drawable.back_arrow);
             customed.getButtonLeft().setOnClickListener(v -> finish());
             customed.setImageRight(R.drawable.star_fill_white);
+            setRightButtonByFavor();
+            this.customActionBar.getButtonRight().setOnClickListener(v -> {
+                User.swapFavorite(this, article_id);
+                if (User.getFavorite(v.getContext()).contains(article_id))
+                    makeToast("收藏成功");
+                setRightButtonByFavor();
+            });
         }
 
-        Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
-        String title = intent.getStringExtra("title");
-        String info = intent.getStringExtra("info");
-        setText(R.id.title, title);
-        setText(R.id.info, info);
-        article_id = id;
         getArticle(id);
     }
 
@@ -155,6 +163,10 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void setRightButtonByFavor() {
-
+        if (User.getFavorite(this).contains(article_id)) {
+            this.customActionBar.getButtonRight().setImageResource(R.drawable.star_fill);
+        } else {
+            this.customActionBar.getButtonRight().setImageResource(R.drawable.star_empty);
+        }
     }
 }
