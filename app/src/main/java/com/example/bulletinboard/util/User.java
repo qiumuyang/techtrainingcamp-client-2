@@ -45,7 +45,7 @@ public class User {
     }
 
     public static boolean isSavePswd(Context context) {
-        return getString(context, SAVEPSWD_KEY, "false") == "true";
+        return getString(context, SAVEPSWD_KEY, "false").equals("true");
     }
 
     public static Set<String> getFavorite(Context context) {

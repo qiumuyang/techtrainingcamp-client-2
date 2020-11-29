@@ -140,7 +140,7 @@ public class ArticleActivity extends AppCompatActivity {
                         // remove saved token and call LOGIN
                         makeToast("登录过期，请重新登录");
                         User.setToken(ArticleActivity.this, null);
-                        String token = getToken();
+                        getToken();
                         break;
                     default:
                         makeToast("网络错误(" + response.code() + ")");

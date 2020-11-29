@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         // test token-update by setting invalid token on boot
         // TODO remove this line
-        // User.setToken(this, "123");
+        User.setToken(this, "123");
 
         Intent intent = new Intent(this, BulletinActivity.class);
         startActivity(intent);
