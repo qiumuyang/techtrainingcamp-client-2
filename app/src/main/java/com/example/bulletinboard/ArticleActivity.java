@@ -3,16 +3,15 @@ package com.example.bulletinboard;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bulletinboard.json.ArticleResponse;
+import com.example.bulletinboard.util.CustomActionBar;
 import com.example.bulletinboard.util.MDParser;
 import com.example.bulletinboard.util.User;
 import com.google.gson.Gson;
@@ -32,7 +31,7 @@ public class ArticleActivity extends AppCompatActivity {
     private static final String TAG = "ArticleActivity";
     private static final String URL_ARTICLE = "https://vcapi.lvdaqian.cn/article/";
     private static String article_id;
-
+    private CustomActionBar customActionBar;
 
     public static void actionStart(Context context, String id, String title, String info) {
         Intent intent = new Intent();
@@ -50,8 +49,13 @@ public class ArticleActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
+            CustomActionBar customed = new CustomActionBar(this);
+            this.customActionBar = customed;
+            customed.replaceActionBar(actionBar);
+            customed.setTitle(getResources().getString(R.string.app_name));
+            customed.setImageLeft(R.drawable.back_arrow);
+            customed.getButtonLeft().setOnClickListener(v -> finish());
+            customed.setImageRight(R.drawable.star_fill_white);
         }
 
         Intent intent = getIntent();
@@ -150,13 +154,7 @@ public class ArticleActivity extends AppCompatActivity {
         runOnUiThread(() -> ((TextView) findViewById(res_id)).setText(text));
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+    private void setRightButtonByFavor() {
+
     }
 }
