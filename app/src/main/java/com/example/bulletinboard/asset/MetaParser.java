@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class ParseMeta {
+public class MetaParser {
 
     private static final String TAG = "ParseMeta";
     private static final int IMG_H0 = 111;
     private static final int IMG_H1 = 80;
     private final AssetManager mAssetMangaer;
 
-    public ParseMeta(AssetManager assetManager) {
+    public MetaParser(AssetManager assetManager) {
         this.mAssetMangaer = assetManager;
     }
 

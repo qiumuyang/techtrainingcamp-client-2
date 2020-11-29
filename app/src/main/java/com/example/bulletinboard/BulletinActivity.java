@@ -3,8 +3,6 @@ package com.example.bulletinboard;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -13,7 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bulletinboard.asset.ParseMeta;
+import com.example.bulletinboard.asset.MetaParser;
 import com.example.bulletinboard.data.Bulletin;
 import com.example.bulletinboard.util.CustomActionBar;
 import com.example.bulletinboard.util.User;
@@ -45,7 +43,7 @@ public class BulletinActivity extends AppCompatActivity {
         }
 
         AssetManager am = getAssets();
-        ParseMeta metaParser = new ParseMeta(am);
+        MetaParser metaParser = new MetaParser(am);
         List<Bulletin> bulletins = metaParser.parse(META_PATH);
 
         RecyclerView main_list = (RecyclerView) findViewById(R.id.main_list);

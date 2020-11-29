@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.bulletinboard.asset.ParseMeta;
+import com.example.bulletinboard.asset.MetaParser;
 import com.example.bulletinboard.json.BulletinJson;
 import com.example.bulletinboard.util.CustomActionBar;
 import com.example.bulletinboard.util.User;
@@ -26,7 +26,7 @@ public class FavorActivity extends AppCompatActivity {
 
     private static List<BulletinJson> article;
 
-    private ParseMeta metaParser;
+    private MetaParser metaParser;
 
     public static void actionStart(Context context) {
         Intent intent = new Intent();
@@ -50,7 +50,7 @@ public class FavorActivity extends AppCompatActivity {
         }
 
         AssetManager am = getAssets();
-        metaParser = new ParseMeta(am);
+        metaParser = new MetaParser(am);
         Set<String> favor = User.getFavorite(this);
         article = metaParser.getRawBulletin(META_PATH, favor);
 
